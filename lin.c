@@ -257,3 +257,36 @@ struct Matrix *inverse(struct Matrix *A) {
     freeMatrix(adjoint);
     return R;
 }
+
+/**
+ Calculates the "entrywise" matrix norm
+ https://en.wikipedia.org/wiki/Matrix_norm#L2,1_and_Lp,q_norms
+ */
+double pqNorm(struct Matrix *A, int p, int q) {
+    double sum = 0;
+    for (int j = 0; j < A->col; j++) {
+        double isum = 0;
+        for (int i = 0; i < A->row; i++) {
+            isum += pow(fabs(A->matrix[i][j]), p);
+        }
+        sum += pow(isum, (double)q/p);
+    }
+    return pow(sum, (double)1/q);
+}
+
+/**
+ Calculates the trace of a square matrix
+ https://en.wikipedia.org/wiki/Trace_(linear_algebra)
+ */
+double trace(struct Matrix *A) {
+    if (A->row != A->col) {
+        fprintf(stderr, "Invalid matrix sizes for trace\n");
+        return 0;
+    }
+
+    double sum = 0;
+    for (int i = 0; i < A->row; i++) {
+        sum += A->matrix[i][i];
+    }
+    return sum;
+}

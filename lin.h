@@ -25,3 +25,6 @@ struct Matrix *transpose(struct Matrix *A);
 double determinant(struct Matrix *A);
 struct Matrix *cofactor(struct Matrix *A);
 struct Matrix *inverse(struct Matrix *A);
+
+double pqNorm(struct Matrix *A, int p, int q);
+double trace(struct Matrix *A);
